@@ -1,0 +1,18 @@
+name: Notify Downstream Repositories
+
+on:
+    release:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Noify endjin/firecracker-rootfs-alpine-dotnet
+      run: |
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/JamesDawson/repo-dispatch-target/dispatches \
+          -F "event_type=upstream-release" \
+          -F "client_payload[version]=${{ github.event.release.tag_name }}"
