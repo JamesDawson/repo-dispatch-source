@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Notify downstream
+      if: github.event.action == 'released'
       run: |
         gh api \
           --method POST \
@@ -16,3 +17,5 @@ jobs:
           /repos/JamesDawson/repo-dispatch-target/dispatches \
           -F "event_type=upstream-release" \
           -F "client_payload[version]=${{ github.event.release.tag_name }}"
+      env:
+        GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
