@@ -7,7 +7,7 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-    - name: Noify endjin/firecracker-rootfs-alpine-dotnet
+    - name: Notify downstream
       run: |
         gh api \
           --method POST \
